@@ -2,7 +2,7 @@
 import { useAnimations, useScroll, useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useEffect, useRef } from "react";
-import { Group } from "three";
+import { AnimationAction, Group } from "three";
 
 useGLTF.preload("/robot.glb");
 
@@ -14,17 +14,14 @@ export default function Model() {
   const scroll = useScroll();
 
   useEffect(() => {
-    //@ts-ignore
-    actions["Experiment"].play().paused = true;
+    const action = actions["Experiment"] as AnimationAction;
+    action.play().paused = true;
   }, [actions]);
 
-  useFrame(
-    () =>
-      //@ts-ignore
-      (actions["Experiment"].time =
-        //@ts-ignore
-        actions["Experiment"].getClip().duration * scroll.offset)
-  );
+  useFrame(() => {
+    const action = actions["Experiment"] as AnimationAction;
+    action.time = action.getClip().duration * scroll.offset;
+  });
 
   return (
     <group ref={robotRef}>

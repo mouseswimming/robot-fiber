@@ -10,7 +10,7 @@ function Loader() {
 
 export default function Scene() {
   return (
-    <Canvas gl={{ antialias: true }} className="relative h-full">
+    <Canvas gl={{ antialias: true }} dpr={[1, 1.5]} className="relative h-full">
       <directionalLight position={[-5, -5, 5]} intensity={4} />
       <Suspense fallback={<Loader />}>
         <ScrollControls damping={0.2} pages={10}>
